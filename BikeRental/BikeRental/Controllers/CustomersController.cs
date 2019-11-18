@@ -100,7 +100,5 @@ namespace BikeRental.Controllers
         {
             return _context.Customers.Any(e => e.CustomerId == id);
         }
-
-        // TODO: Get all rentals for a specific customer
     }
 }
