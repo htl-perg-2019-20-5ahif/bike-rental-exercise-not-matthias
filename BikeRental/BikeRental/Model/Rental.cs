@@ -13,6 +13,7 @@ namespace BikeRental.Model
         public DateTime? RentalEnd { get; set; }
 
         [Range(0, double.PositiveInfinity)]
+        [RegularExpression("^\\d(\\.\\d{1,2})$")]
         public decimal? TotalRentalCosts { get; set; }
 
         [Required]

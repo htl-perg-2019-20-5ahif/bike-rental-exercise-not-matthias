@@ -28,9 +28,11 @@ namespace BikeRental.Model
         public DateTime? LastService { get; set; }
 
         [Required, Range(0, double.PositiveInfinity)]
+        [RegularExpression("^\\d(\\.\\d{1,2})$")]
         public decimal RentalPriceFirstHour { get; set; }
 
         [Required, Range(0, double.PositiveInfinity)]
+        [RegularExpression("^\\d(\\.\\d{1,2})$")]
         public decimal RentalPriceAdditionalHours { get; set; }
 
         [Required]
