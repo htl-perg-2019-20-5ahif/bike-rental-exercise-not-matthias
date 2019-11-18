@@ -10,7 +10,7 @@ using web;
 namespace BikeRental.Migrations
 {
     [DbContext(typeof(BikeRentalDbContext))]
-    [Migration("20191118153821_Initial")]
+    [Migration("20191118154712_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
