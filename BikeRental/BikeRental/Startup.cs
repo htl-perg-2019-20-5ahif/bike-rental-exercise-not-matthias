@@ -21,7 +21,8 @@ namespace BikeRental
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<BikeRentalDataContext>(options => options.UseSqlServer(Configuration["ConnectionString:DefaultConnection"]));
+            services.AddDbContext<BikeRentalDbContext>(options =>
+                options.UseSqlServer(Configuration["ConnectionString:DefaultConnection"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
