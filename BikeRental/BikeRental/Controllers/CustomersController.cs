@@ -1,11 +1,9 @@
-﻿using System;
+﻿using BikeRental.Model;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using BikeRental.Model;
 using web;
 
 namespace BikeRental.Controllers
@@ -29,22 +27,20 @@ namespace BikeRental.Controllers
         }
 
         // GET: api/Customers/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        [HttpGet("{filter}")]
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomer(string filter)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var customers = await _context.Customers.Where(customer => customer.LastName.Contains(filter)).ToArrayAsync();
 
-            if (customer == null)
+            if (customers == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return customers;
         }
 
         // PUT: api/Customers/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(int id, Customer customer)
         {
@@ -75,15 +71,13 @@ namespace BikeRental.Controllers
         }
 
         // POST: api/Customers
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetCustomer", new { filter = customer.LastName }, customer);
         }
 
         // DELETE: api/Customers/5
@@ -106,5 +100,7 @@ namespace BikeRental.Controllers
         {
             return _context.Customers.Any(e => e.CustomerId == id);
         }
+
+        // TODO: Get all rentals for a specific customer
     }
 }

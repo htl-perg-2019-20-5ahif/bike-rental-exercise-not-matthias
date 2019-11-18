@@ -2,7 +2,7 @@
 
 namespace BikeRental
 {
-    public interface ICalculator
+    public interface ICostCalculator
     {
         public decimal Calculate(DateTime start, DateTime end, decimal rentalPriceFirstHour, decimal rentalPriceAdditionalHours);
     }

@@ -1,11 +1,9 @@
-﻿using System;
+﻿using BikeRental.Model;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using BikeRental.Model;
 using web;
 
 namespace BikeRental.Controllers
@@ -23,9 +21,18 @@ namespace BikeRental.Controllers
 
         // GET: api/Bikes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Bike>>> GetBikes()
+        public async Task<ActionResult<IEnumerable<Bike>>> GetBikes([FromQuery] BikeSort sort)
         {
-            return await _context.Bikes.ToListAsync();
+            return sort switch
+            {
+                BikeSort.PriceOfFirstHour =>
+                    await _context.Bikes.OrderBy(bike => bike.RentalPriceFirstHour).ToListAsync(),
+                BikeSort.PriceOfAdditionalHours =>
+                    await _context.Bikes.OrderBy(bike => bike.RentalPriceAdditionalHours).ToListAsync(),
+                BikeSort.PurchaseDate =>
+                    await _context.Bikes.OrderBy(bike => bike.PurchaseDate).ToListAsync(),
+                _ => await _context.Bikes.ToListAsync(),
+            };
         }
 
         // GET: api/Bikes/5
@@ -43,8 +50,6 @@ namespace BikeRental.Controllers
         }
 
         // PUT: api/Bikes/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBike(int id, Bike bike)
         {
@@ -75,8 +80,6 @@ namespace BikeRental.Controllers
         }
 
         // POST: api/Bikes
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         public async Task<ActionResult<Bike>> PostBike(Bike bike)
         {

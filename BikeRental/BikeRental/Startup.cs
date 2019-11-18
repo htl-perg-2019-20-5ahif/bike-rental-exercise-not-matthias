@@ -20,7 +20,7 @@ namespace BikeRental
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<ICalculator, Calculator>();
+            services.AddTransient<ICostCalculator, CostCalculator>();
 
             services.AddControllers();
             services.AddDbContext<BikeRentalDbContext>(options => options.UseSqlServer(

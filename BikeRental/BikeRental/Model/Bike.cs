@@ -4,6 +4,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BikeRental.Model
 {
+    public enum BikeSort
+    {
+        None,
+        PriceOfFirstHour,
+        PriceOfAdditionalHours,
+        PurchaseDate
+    }
+
     public enum BikeCategory
     {
         StandardBike,

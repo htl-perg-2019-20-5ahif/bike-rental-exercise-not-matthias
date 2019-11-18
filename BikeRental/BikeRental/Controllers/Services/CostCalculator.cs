@@ -2,7 +2,7 @@
 
 namespace BikeRental
 {
-    public class Calculator : ICalculator
+    public class CostCalculator : ICostCalculator
     {
         public decimal Calculate(DateTime start, DateTime end, decimal priceFirstHour, decimal priceAdditionalHours)
         {
