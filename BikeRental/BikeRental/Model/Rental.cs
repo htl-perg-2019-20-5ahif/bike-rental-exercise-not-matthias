@@ -25,7 +25,7 @@ namespace BikeRental.Model
         [Required]
         public Customer Renter { get; set; }
 
-        public int BikeId { get; set; }
+        public int RentedBikeId { get; set; }
 
         [Required]
         public Bike RentedBike { get; set; }
