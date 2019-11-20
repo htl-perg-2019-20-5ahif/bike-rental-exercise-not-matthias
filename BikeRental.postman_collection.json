@@ -1,0 +1,394 @@
+{
+	"info": {
+		"_postman_id": "3524939b-ddae-4e48-86b9-a9afd912bccc",
+		"name": "BikeRental",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Bike",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/api/bikes",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"bikes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetSpecific",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/api/bikes?sort=3",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"bikes"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brand\": \"KTM FastTester\",\r\n    \"purchaseDate\": \"2015-06-15T13:16:47.511Z\",\r\n    \"rentalPriceFirstHour\": 3.00,\r\n    \"rentalPriceAdditionalHours\": 5.00,\r\n    \"bikeCategory\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/api/bikes",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"bikes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bikeId\": 1,\n    \"brand\": \"KTM Fast Tester\",\n    \"purchaseDate\": \"2015-06-15T13:16:47.511\",\n    \"notes\": null,\n    \"lastService\": null,\n    \"rentalPriceFirstHour\": 3.00,\n    \"rentalPriceAdditionalHours\": 5.00,\n    \"bikeCategory\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/api/bikes/1",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"bikes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/api/bikes/3",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"bikes",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/api/customers",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetSpecific",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/api/customers/Mus",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"Mus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"gender\": 1,\r\n    \"firstName\": \"Max\",\r\n    \"lastName\": \"Mustermann\",\r\n    \"birthday\": \"2000-05-23T18:25:43.511Z\",\r\n    \"Street\": \"Richard's Street\",\r\n    \"HouseNumber\": \"25\",\r\n    \"ZipCode\": \"6234\",\r\n    \"Town\": \"Example Town\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/api/customers",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": 8,\n    \"gender\": 1,\n    \"firstName\": \"Matthias\",\n    \"lastName\": \"Mustermann\",\n    \"birthday\": \"2000-05-23T18:25:43.511\",\n    \"street\": \"Richard's Street\",\n    \"houseNumber\": \"25\",\n    \"zipCode\": \"6234\",\n    \"town\": \"Example Town\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/api/customers/8",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/api/customers/10",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Rental",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/api/rentals",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"rentals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Start",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"renterId\": 1,\r\n    \"bikeId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/api/rentals",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"rentals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "End",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/api/rentals/3/end",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"rentals",
+								"3",
+								"end"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paid",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/api/rentals/3/paid",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"rentals",
+								"3",
+								"paid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/api/rentals/2",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"api",
+								"rentals",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
