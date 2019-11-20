@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using web;
 
 namespace BikeRental
@@ -23,8 +24,12 @@ namespace BikeRental
             services.AddTransient<ICostCalculator, CostCalculator>();
 
             services.AddControllers();
+
             services.AddDbContext<BikeRentalDbContext>(options => options.UseSqlServer(
                 Configuration["ConnectionStrings:DefaultConnection"]));
+
+            services.AddControllers().AddNewtonsoftJson(settings =>
+                settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

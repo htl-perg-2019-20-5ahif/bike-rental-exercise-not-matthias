@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,7 +16,6 @@ namespace BikeRental.Model
     {
         public int CustomerId { get; set; }
 
-        [Required]
         public Gender Gender { get; set; }
 
         [Required, MaxLength(50)]

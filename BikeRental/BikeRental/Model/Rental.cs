@@ -1,8 +1,16 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BikeRental.Model
 {
+    [NotMapped]
+    public class StartRentalRequest
+    {
+        public int RenterId { get; set; }
+        public int BikeId { get; set; }
+    }
+
     public class Rental
     {
         public int RentalId { get; set; }
@@ -25,9 +33,9 @@ namespace BikeRental.Model
         [Required]
         public Customer Renter { get; set; }
 
-        public int RentedBikeId { get; set; }
+        public int BikeId { get; set; }
 
         [Required]
-        public Bike RentedBike { get; set; }
+        public Bike Bike { get; set; }
     }
 }

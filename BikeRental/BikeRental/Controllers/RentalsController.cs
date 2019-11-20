@@ -27,7 +27,7 @@ namespace BikeRental.Controllers
         public async Task<ActionResult<IEnumerable<Rental>>> GetRentals()
         {
             return await _context.Rentals
-                .Include(rental => rental.RentedBike)
+                .Include(rental => rental.Bike)
                 .Include(rental => rental.Renter)
                 .ToListAsync();
         }
@@ -44,36 +44,6 @@ namespace BikeRental.Controllers
             }
 
             return rental;
-        }
-
-        // PUT: api/Rentals/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRental(int id, Rental rental)
-        {
-            if (id != rental.RentalId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(rental).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RentalExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // DELETE: api/Rentals/5
@@ -100,19 +70,39 @@ namespace BikeRental.Controllers
 
         // POST: api/Rentals/start
         [HttpPost]
-        public async Task<ActionResult<Rental>> StartRental(Rental rental)
+        public async Task<ActionResult<Rental>> PostRental([FromBody] StartRentalRequest request)
         {
-            // FIXME: RentalId and BikeId not recognized by the EF
+            var renter = await _context.Customers.FindAsync(request.RenterId);
+            if (renter is null)
+            {
+                return BadRequest("Invalid renter id");
+            }
 
-            rental.RentalBegin = DateTime.Now;
-            rental.RentalEnd = default;
-            rental.TotalRentalCosts = default;
-            rental.Paid = false;
+            var bike = await _context.Bikes.FindAsync(request.RenterId);
+            if (renter is null)
+            {
+                return BadRequest("Invalid bike id");
+            }
+
+            var rental = new Rental
+            {
+                RentalBegin = DateTime.Now,
+                RentalEnd = default,
+                TotalRentalCosts = default,
+                Paid = false,
+                RenterId = request.RenterId,
+                Renter = renter,
+                BikeId = request.BikeId,
+                Bike = bike
+            };
 
             _context.Rentals.Add(rental);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRental", new { id = rental.RentalId }, rental);
+            return CreatedAtAction("GetRental", new
+            {
+                id = rental.RentalId
+            }, rental);
         }
 
         // POST: api/Rentals/5/end
@@ -122,10 +112,13 @@ namespace BikeRental.Controllers
             //
             // Get the rental object
             //
-            var rental = await _context.Rentals.FindAsync(id);
+            var rental = await _context.Rentals
+                .Include(rental => rental.Bike)
+                .Include(rental => rental.Renter)
+                .FirstOrDefaultAsync(rental => rental.RentalId == id);
 
             // Invalid object
-            if (rental is null)
+            if (rental == default)
             {
                 return NotFound();
             }
@@ -143,8 +136,8 @@ namespace BikeRental.Controllers
             rental.TotalRentalCosts = _calculator.Calculate(
                     rental.RentalBegin,
                     rental.RentalEnd.GetValueOrDefault(),
-                    rental.RentedBike.RentalPriceFirstHour,
-                    rental.RentedBike.RentalPriceAdditionalHours
+                    rental.Bike.RentalPriceFirstHour,
+                    rental.Bike.RentalPriceAdditionalHours
                 );
 
             //
@@ -162,10 +155,13 @@ namespace BikeRental.Controllers
             //
             // Get the rental object
             //
-            var rental = await _context.Rentals.FindAsync(id);
+            var rental = await _context.Rentals
+                 .Include(rental => rental.Bike)
+                 .Include(rental => rental.Renter)
+                 .FirstOrDefaultAsync(rental => rental.RentalId == id);
 
             // Invalid object
-            if (rental is null)
+            if (rental == default)
             {
                 return NotFound();
             }

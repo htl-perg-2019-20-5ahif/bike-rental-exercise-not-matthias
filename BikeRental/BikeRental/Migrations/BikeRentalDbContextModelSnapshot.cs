@@ -138,7 +138,7 @@ namespace BikeRental.Migrations
 
             modelBuilder.Entity("BikeRental.Model.Rental", b =>
                 {
-                    b.HasOne("BikeRental.Model.Bike", "RentedBike")
+                    b.HasOne("BikeRental.Model.Bike", "Bike")
                         .WithMany("Rentals")
                         .HasForeignKey("BikeId")
                         .OnDelete(DeleteBehavior.Cascade)

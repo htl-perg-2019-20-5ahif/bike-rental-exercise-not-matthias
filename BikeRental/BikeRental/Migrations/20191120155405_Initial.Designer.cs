@@ -10,7 +10,7 @@ using web;
 namespace BikeRental.Migrations
 {
     [DbContext(typeof(BikeRentalDbContext))]
-    [Migration("20191118154712_Initial")]
+    [Migration("20191120155405_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -140,7 +140,7 @@ namespace BikeRental.Migrations
 
             modelBuilder.Entity("BikeRental.Model.Rental", b =>
                 {
-                    b.HasOne("BikeRental.Model.Bike", "RentedBike")
+                    b.HasOne("BikeRental.Model.Bike", "Bike")
                         .WithMany("Rentals")
                         .HasForeignKey("BikeId")
                         .OnDelete(DeleteBehavior.Cascade)
