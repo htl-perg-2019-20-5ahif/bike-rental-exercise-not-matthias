@@ -46,6 +46,34 @@ namespace BikeRental.Controllers
             return rental;
         }
 
+        private async Task<IActionResult> PutRental(int id, Rental rental)
+        {
+            if (id != rental.RentalId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(rental).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!RentalExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         // DELETE: api/Rentals/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Rental>> DeleteRental(int id)
